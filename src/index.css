@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    @apply bg-slate-100 dark:bg-zinc-950 text-zinc-800 dark:text-zinc-100;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-zinc-300 dark:bg-zinc-700 rounded-full; }
+}
+
+@layer utilities {
+  .drag-handle { cursor: grab; }
+  .drag-handle:active { cursor: grabbing; }
+  .resume-preview * { font-family: 'DM Sans', sans-serif; }
+  .resume-preview .font-display { font-family: 'Playfair Display', serif; }
+
+  /* Hide scrollbar for template preview */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* Smooth section transitions */
+.section-transition {
+  transition: all 0.2s ease;
+}
+
+/* PDF-safe styles */
+@media print {
+  body { background: white !important; }
+  .no-print { display: none !important; }
+}
+
+/* ── PDF export helpers ────────────────────────────────────────────────────
+   Applied to #resume-preview-canvas while exporting so the captured element
+   has no stray min-height / margin that could produce a blank 2nd page.     */
+.pdf-exporting {
+  min-height: unset !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* ── Print styles (Ctrl+P fallback) ───────────────────────────────────────── */
+@media print {
+  body > *:not(#resume-preview-canvas) { display: none !important; }
+  #resume-preview-canvas {
+    width: 210mm !important;
+    min-height: unset !important;
+    height: auto !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+}
