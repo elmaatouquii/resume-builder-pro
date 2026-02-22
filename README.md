@@ -1,5 +1,7 @@
 # Resume (CV) Builder Pro
-
+<p align="center">
+  <img src="./src/1.png" width="900"/>
+</p>
 Create professional resumes with live preview and single-page PDF export.  
 Built with React.
 
